@@ -1,0 +1,32 @@
+
+CC=gcc
+
+CFLAGS=-Wall -O3 -march=native
+
+# Linking 
+FLAGS=
+
+TARGET=test_hash
+
+OBJS=	test_hash.o 	\
+	hash.o		\
+	dll.o
+
+all: $(TARGET)
+
+
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $@  # $@ means target
+
+
+.c.o:
+	$(CC) -c $(CFLAGS) $<
+
+# queue.o: queue.c queue.h
+# 	$CC $CFLAGS -c queue.c
+
+# main.o: main.c
+# 	$CC $CFLAGS -c main.c
+
+clean:
+	rm $(OBJS)
