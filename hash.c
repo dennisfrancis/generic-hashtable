@@ -33,7 +33,7 @@ int hashtable_init( hashtable_t *ht, int slots,
     
     int i;
     if( ht->memFreed == 'N' ) {
-	hashtable_destroy( ht );
+	    hashtable_destroy( ht );
     }
     ht->memFreed = 'Y';
     ht->slots = slots;
@@ -45,7 +45,7 @@ int hashtable_init( hashtable_t *ht, int slots,
 	return -1;
 
     for( i=0; i<slots; i++ ) {
-	list_init( ht->list_arr + i, comp_keys );
+	    list_init( ht->list_arr + i, comp_keys );
     }
 
     ht->num_elements = 0;
@@ -71,13 +71,13 @@ void hashtable_destroy( hashtable_t *ht ) {
     
     int i;
     if( ht->memFreed == 'Y' )
-	return;
+	    return;
     for( i=0; i<ht->slots; i++ ) {
-	list_cleanup( ht->list_arr + i );  // Free each list
+	    list_cleanup( ht->list_arr + i );  // Free each list
     }
     free( ht->list_arr ); // Free the array of list headers
     free( ht->element_list ); // Null check is done by free()
-    free( ht->hash_params );
+    //free( ht->hash_params ); // do only if dynamically allocated
     ht->memFreed = 'Y';
 }
 

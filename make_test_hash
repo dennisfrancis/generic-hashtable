@@ -1,7 +1,7 @@
 
 CC=gcc
 
-CFLAGS=-Wall -O3 -march=native
+CFLAGS=-Wall -g -march=native
 
 # Linking 
 FLAGS=
