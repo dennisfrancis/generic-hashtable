@@ -86,6 +86,7 @@ int main() {
     vertex_t **vlist;
     void *ret_node;
     int i;
+    int bSuccess = 1;
     char *ids[] = {
 	"id12345",
 	"id14345",
@@ -126,8 +127,11 @@ int main() {
 	printf( "Deleted the searched node.\n" );
 	v =	(vertex_t *)is_in_hashtable( &ht, &vert, &ret_node );
 	printf( "Search after delete : v = %p, ret_node = %p for the id=id11345\n", v, ret_node );
+        if ( v || ret_node )
+            bSuccess = 0;
     } else {
 	printf( "Search unsuccessful !\n" );
+        bSuccess = 0;
     }
 
     vlist = (vertex_t **)get_elements_in_hashtable( &ht, &num_elements, NULL, NULL );
@@ -137,7 +141,8 @@ int main() {
 	    printf( "<%s, %lu>\n", vlist[i]->id, vlist[i]->num_id );
     } else {
 	printf( "Error getting the list of elements in the hashtable\n" );
+        bSuccess = 0;
     }
     hashtable_destroy( &ht );
-    return 0;
+    return 1 - bSuccess;
 }
