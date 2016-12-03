@@ -33,6 +33,7 @@ int main() {
     vertex_t *v;
     vertex_t vert = { "id11345", 123, 'E' };
     void *ret_node;
+    int bSuccess = 1;
     int i;
     char *ids[] = {
 	"id12345",
@@ -62,10 +63,13 @@ int main() {
 	printf( "Deleted the searched node.\n" );
 	v =	(vertex_t *)isPresent( &lst, &vert, &ret_node );
 	printf( "Search after delete : v = %p, ret_node = %p for the id=id11345\n", v, ret_node );
+        if ( v || ret_node )
+            bSuccess = 0;
     } else {
 	printf( "Search unsuccessful !\n" );
+        bSuccess = 0;
     }
 
     list_cleanup( &lst );
-    return 0;
+    return 1-bSuccess;
 }
