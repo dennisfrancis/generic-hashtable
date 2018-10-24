@@ -5,7 +5,7 @@ With this C library you can create create a hash table with user defined key typ
 
 
 
-##Source Files
+Source Files
 ============
 1. `dll.h` - Doubly linked list header
 2. `dll.c` - Doubly linked list implementation
@@ -14,14 +14,16 @@ With this C library you can create create a hash table with user defined key typ
 5. `test_ll.c` - A sample program used to test the functionality of doubly linked list library.
 6. `test_hash.c` - A sample program used to test the functionality of hash table library.
 
-##Build library from source
+Build library from source
+-------------------------
 
 To build the library and run the tests, do
 ```
 $ make
 ```
 
-##Use library in your programs
+Use library in your programs
+----------------------------
 
 To compile and run your program that uses this library, do
 ```
