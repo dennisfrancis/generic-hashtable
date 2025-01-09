@@ -80,9 +80,9 @@ int main()
     vertex_t vert = { "id11345", 123 };
     parm.p = 5381;
     parm.m = 100;
+    get_hash_param(&parm);
     printf("parm : p = %lu, m = %lu, a = %lu, b = %lu, seed = %lu\n", parm.p, parm.m, parm.a,
            parm.b, parm.seed);
-    get_hash_param(&parm);
     hashtable_init(&ht, parm.m, comp_keys, hash, &parm);
 
     for (i = 0; i < 8; i++)
