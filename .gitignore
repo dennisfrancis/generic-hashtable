@@ -16,4 +16,7 @@
 *.out
 *.app
 
-test
+/obj/
+/lib/
+/test/
+/build/*
