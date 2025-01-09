@@ -10,19 +10,19 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 option(BUILD_SHARED_LIBS "Build using shared libraries" ON)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Werror")
 
-add_library(gendll dll.c)
-target_include_directories(gendll PUBLIC ${CMAKE_SOURCE_DIR})
+add_library(gendll src/dll.c)
+target_include_directories(gendll PUBLIC ${CMAKE_SOURCE_DIR}/include)
 
-add_library(genhash hash.c)
-target_include_directories(genhash PUBLIC ${CMAKE_SOURCE_DIR})
+add_library(genhash src/hash.c)
+target_include_directories(genhash PUBLIC ${CMAKE_SOURCE_DIR}/include)
 target_link_libraries(genhash gendll)
 
-add_executable(test_gendll test_ll.c)
-target_include_directories(test_gendll PUBLIC ${CMAKE_SOURCE_DIR})
+add_executable(test_gendll tests/test_ll.c)
+target_include_directories(test_gendll PUBLIC ${CMAKE_SOURCE_DIR}/include)
 target_link_libraries(test_gendll gendll)
 
-add_executable(test_genhash test_hash.c)
-target_include_directories(test_genhash PUBLIC ${CMAKE_SOURCE_DIR})
+add_executable(test_genhash tests/test_hash.c)
+target_include_directories(test_genhash PUBLIC ${CMAKE_SOURCE_DIR}/include)
 target_link_libraries(test_genhash genhash)
 
 add_custom_command(TARGET test_gendll POST_BUILD
