@@ -1,5 +1,5 @@
-Generic HashTable library in pure C
-===================================
+Generic HashTable library in C
+==============================
 
 With this C library you can create create a hash table with user defined key type and value type and user defined hash function, hence the term "generic".
 
