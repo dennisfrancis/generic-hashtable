@@ -1,12 +1,7 @@
-Generic HashTable library in C
-==============================
+# Generic HashTable library in C
+This is a hash table library in C where key type, value type and hash function are user defined.
 
-With this C library you can create create a hash table with user defined key type and value type and user defined hash function, hence the term "generic".
-
-
-
-Source Files
-============
+# Source Files
 1. `dll.h` - Doubly linked list header
 2. `dll.c` - Doubly linked list implementation
 3. `hash.h` - Hash table header
@@ -14,19 +9,13 @@ Source Files
 5. `test_ll.c` - A sample program used to test the functionality of doubly linked list library.
 6. `test_hash.c` - A sample program used to test the functionality of hash table library.
 
-Build library from source
--------------------------
+## How to build?
 
-To build the library and run the tests, do
+The project uses a standard cmake build system. To build:
 ```
-$ make
+$ cd build
+$ cmake -S .. -B . -DCMAKE_BUILD_TYPE=Release  # Use Debug for debug build or RelWithDebInfo for symbols enabled build.
+$ make -j3                                     # This will build and run the test-suite.
 ```
+The libraries and test binaries will be available in build once the above steps are done.
 
-Use library in your programs
-----------------------------
-
-To compile and run your program that uses this library, do
-```
-$ gcc -Wall -I<repo_root> -L<repo root>/lib -ldlnklst -lgenhash -o <executable_name> <your_program>.c
-$ LD_LIBRARY_PATH=<repo_root>/lib <path/to/executable_name>
-```
