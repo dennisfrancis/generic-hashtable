@@ -2,7 +2,7 @@
 CC=gcc
 CFLAGS=-Wall -O3 -march=native
 
-# Linking 
+# Linking
 FLAGS=
 
 OBJDIR=obj
