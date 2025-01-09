@@ -103,7 +103,7 @@ void hashtable_destroy(hashtable_t* ht)
 int hashtable_insert(hashtable_t* ht, void* element, long int slot)
 { // Does not check for existence
 
-    int target_slot = (slot < 0) ? ht->hash(element, ht->hash_params) : slot;
+    int target_slot = (slot < 0) ? (long int)ht->hash(element, ht->hash_params) : slot;
     int ret_val = list_insert(ht->list_arr + target_slot, element);
     if (ret_val == 0)
         ++(ht->num_elements);
@@ -191,7 +191,7 @@ void** get_elements_in_hashtable(hashtable_t* ht, int* num_elements, void* (*get
             node = lst->head;
             while (node)
             {
-                index = (get_index) ? get_index(node->element) : default_index++;
+                index = (get_index) ? (int)get_index(node->element) : default_index++;
                 ((char**)ht->element_list)[index]
                     = (get_field) ? get_field(node->element) : node->element;
                 node = node->next;
