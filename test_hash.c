@@ -40,10 +40,11 @@ int comp_keys(void* el1, void* el2)
     register char *t2;
     register char equal = 1;
     for(t1 = s1, t2 = s2; ((*t1) && (*t2)) && equal ; t1++, t2++ )
-	if( (*t1) != (*t2) )
-	    equal = 0;
+    if( (*t1) != (*t2) )
+        equal = 0;
     return !equal;
-    }*/
+}
+*/
 
 void get_hash_param(hashparam_t* h)
 {
