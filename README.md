@@ -13,9 +13,9 @@ This is a hash table library in C where key type, value type and hash function a
 
 The project uses a standard cmake build system. To build:
 ```
-$ cd build
-$ cmake -S .. -B . -DCMAKE_BUILD_TYPE=Release  # Use Debug for debug build or RelWithDebInfo for symbols enabled build.
-$ make -j3                                     # This will build and run the test-suite.
+cd build
+cmake -S .. -B . -DCMAKE_BUILD_TYPE=Release  # Use Debug for debug build or RelWithDebInfo for symbols enabled build.
+make -j3                                     # This will build and run the test-suite.
 ```
 The libraries and test binaries will be available in build once the above steps are done.
 
