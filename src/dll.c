@@ -1,4 +1,29 @@
-// Copyright (C) 2012 Dennis Francis<dennisfrancis.in@gmail.com>
+/************************************************************************
+ * Generic HashTable                                                    *
+ * Copyright (C) 2012 by Dennis Francis                                 *
+ *                                                                      *
+ * This program is free software: you can redistribute it and/or modify *
+ * it under the terms of the GNU General Public License as published by *
+ * the Free Software Foundation, either version 3 of the License, or    *
+ * (at your option) any later version.                                  *
+ *                                                                      *
+ * This program is distributed in the hope that it will be useful,      *
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of       *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        *
+ * GNU General Public License for more details.                         *
+ *                                                                      *
+ * You should have received a copy of the GNU General Public License    *
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.*
+ ************************************************************************/
+
+/**
+ * @file dll.c
+ * @author Dennis Francis
+ * @date 10 Jan 2025
+ * @brief C source file for generic doubly linked list implementation.
+ *
+ * This doubly linked list allows the storage of data of user defined type.
+ */
 
 #include "dll.h"
 #include <stdlib.h>
@@ -6,16 +31,6 @@
 
 static int __create_node(void* element, NODEptr* new_node);
 
-/*
-    list_init()
-    -----------
-    Initializes a list structure
-
-    lst : pointer to list structure
-    comp_keys : pointer to a function which returns 0 when the keys of the
-    arguments are same
-
-*/
 void list_init(list_t* lst, int (*comp_keys)(void*, void*))
 {
     lst->head = NULL;
@@ -23,15 +38,14 @@ void list_init(list_t* lst, int (*comp_keys)(void*, void*))
     lst->comp_keys = comp_keys;
 }
 
-/*
-  __create_node():
-  ----------------
-  Creates a new node which encapsulates the data element given as argument
-
-  element : pointer to data element to be stored in the new node
-  new_node : pointer to node pointer variable where the allocated memory
-  address is to be stored.
-
+/**
+ * @brief Creates a new node that will hold the provided pointer to data.
+ *
+ * @param element Pointer to the data (in heap) to be stored in the new node.
+ * @param new_node Pointer to a node pointer variable where the newly allocated
+ * node's address is to be placed.
+ *
+ * @return 0 in case of allocation failure, else returns 0.
  */
 static int __create_node(void* element, NODEptr* new_node)
 {
@@ -47,19 +61,6 @@ static int __create_node(void* element, NODEptr* new_node)
     return -1;
 }
 
-/*
-   list_insert():
-   -------------
-   Inserts and element in the list
-
-   lst : pointer to list structure
-   element : data element to be inserted in the list.
-
-   Returns :
-   -1 if memory allocation error
-   0  on success
-
- */
 int list_insert(list_t* lst, void* element)
 {
     NODEptr new_node;
@@ -81,23 +82,6 @@ int list_insert(list_t* lst, void* element)
     }
     return -1;
 }
-
-/*
-
-  isPresent()
-  -----------
-  Checks if there is an node which contains an element that matches a given
-  element.
-
-  lst : pointer to list structure
-  ref_element : Data to be checked against all the list elements.
-  ret_node (return parameter) : if there is a match, *ret_node is assigned the
-  pointer to the matched node
-
-  Returns:
-  NULL if no match else pointer to matching element
-
- */
 
 void* isPresent(list_t* lst, void* ref_element, void** ret_node)
 {
@@ -131,17 +115,6 @@ void* isPresent(list_t* lst, void* ref_element, void** ret_node)
     return ((node) ? node->element : NULL);
 }
 
-/*
-
-   list_delete()
-   --------------
-   Deletes a node from the list
-
-   lst : pointer to the list structure
-   node : pointer to the node to be deleted
-
- */
-
 void list_delete(list_t* lst, void* node)
 {
     NODEptr save = node;
@@ -172,12 +145,6 @@ void list_delete(list_t* lst, void* node)
     }
 }
 
-/*
-    list_cleanup()
-    -------------
-
-    Frees all nodes in the given list
- */
 void list_cleanup(list_t* lst)
 {
     NODEptr node, next;
