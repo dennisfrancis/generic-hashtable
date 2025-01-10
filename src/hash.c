@@ -1,33 +1,34 @@
-// Copyright (C) 2012 Dennis Francis<dennisfrancis.in@gmail.com>
+/************************************************************************
+ * Generic HashTable                                                    *
+ * Copyright (C) 2012 by Dennis Francis                                 *
+ *                                                                      *
+ * This program is free software: you can redistribute it and/or modify *
+ * it under the terms of the GNU General Public License as published by *
+ * the Free Software Foundation, either version 3 of the License, or    *
+ * (at your option) any later version.                                  *
+ *                                                                      *
+ * This program is distributed in the hope that it will be useful,      *
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of       *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the        *
+ * GNU General Public License for more details.                         *
+ *                                                                      *
+ * You should have received a copy of the GNU General Public License    *
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.*
+ ************************************************************************/
+
+/**
+ * @file hash.c
+ * @author Dennis Francis
+ * @date 10 Jan 2025
+ * @brief C source file for generic hash table implementation.
+ *
+ * This hash table allows data (keys+values) of user defined type.
+ */
 
 #include <stdlib.h>
 
 #include "hash.h"
 
-/*
-
-  hashtable_init()
-  ----------------
-  Initialize the hashtable structure instance.
-
-  ht    : address of the hashtable to be initialized
-  slots : number of slots to be created in the hashtable
-
-  comp_keys  : Pointer to a function that returns 0 when the keys of the
-               arguments are same. otherwise some non-zero number.
-
-  hash : Pointer to hash function which takes the element structure and some
-         arbitary hash parameter structure as arguments.
-
-  hash_params : Pointer to a data structure holding parameter details of the
-                hash function.
-
-  Return value
-  ------------
-  -1 if Unsuccessful in allocating space for the slots.
-  0  if no error
-
- */
 int hashtable_init(hashtable_t* ht, int slots, int (*comp_keys)(void*, void*),
                    unsigned long int (*hash)(void* element, void* params), void* hash_params)
 {
@@ -58,15 +59,6 @@ int hashtable_init(hashtable_t* ht, int slots, int (*comp_keys)(void*, void*),
     return 0;
 }
 
-/*
-
- hashtable_destroy()
- -------------------
- Cleans up the dynamically allocated memory regarding the hashtable and chains.
-
- ht : pointer to hashtable that is to be destroyed
-
- */
 void hashtable_destroy(hashtable_t* ht)
 {
     int i;
@@ -82,24 +74,6 @@ void hashtable_destroy(hashtable_t* ht)
     ht->memFreed = 'Y';
 }
 
-/*
-
-  hashtable_insert() :
-  --------------------
-  Inserts a new element into the hashtable. Does not check if the element
-  already exists.
-
-  ht : pointer to hashtable
-  element : pointer to the data item to be stored
-  slot : provide slot number if hash is already calculated, else give a
-         negative number
-
-  Returns :
-  --------
-  -1 if error allocating memory for new node.
-  0 on success
-
- */
 int hashtable_insert(hashtable_t* ht, void* element, long int slot)
 { // Does not check for existence
 
@@ -110,66 +84,18 @@ int hashtable_insert(hashtable_t* ht, void* element, long int slot)
     return ret_val;
 }
 
-/*
-  is_in_hashtable()
-  -----------------
-
-  Check if an element is present in the hashtable or not
-
-  ht : pointer to hashtable
-  ref_element : Element to be searched in the hashtable for existence
-  ht_node(return parameter) : pointer to node where the matching element is found
-
-  Returns :
-  NULL if no matching element is found else pointer to the matching element.
-
-
- */
 void* is_in_hashtable(hashtable_t* ht, void* ref_element, void** ht_node)
 {
     int target_slot = ht->hash(ref_element, ht->hash_params);
     return isPresent(ht->list_arr + target_slot, ref_element, ht_node);
 }
 
-/*
-  hashtable_delete()
-  ------------------
-
-  Deletes a node corresponding to an element of known slot
-
-  ht : pointer to hashtable
-  slot : slot where the element resides
-  ht_node : pointer to the linked list node which holds the element.
-
-
- */
 void hashtable_delete(hashtable_t* ht, unsigned int slot, void* ht_node)
 {
     list_delete(ht->list_arr + slot, ht_node);
     --(ht->num_elements);
 }
 
-/*
-  get_elements_in_hashtable()
-  ---------------------------
-
-  Returns a pointer to an array of pointers. Each pointer in that array will
-  point to some field in the data elements. The user must not free this
-  pointer. It will be cleaned up during hashtable_destroy()
-
-  ht : pointer to hashtable
-
-  num_elements : number of elements placed in the returned array
-
-  get_field : a function which extracts some required field from the element.
-  If this is NULL the function will return an array of pointers, each pointing
-  to the elements itself.
-
-  get_index : a function which extracts the index where the element must be
-  stored. If this is null, the the index where an element is stored is
-  dependant on the order in which nodes are traversed.
-
- */
 void** get_elements_in_hashtable(hashtable_t* ht, int* num_elements, void* (*get_field)(void*),
                                  unsigned int (*get_index)(void*))
 {

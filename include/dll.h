@@ -77,7 +77,7 @@ int list_insert(list_t* lst, void* element);
  * @param ref_element Pointer to data that needs to be checked against data in
  * every list nodes.
  * @param ret_node If there is a match ret_node will be made to point to the
- * matched node's data pointer.
+ * matched node pointer.
  *
  * @return NULL if there is no match else the pointer to the data held by
  * matching node is returned.
